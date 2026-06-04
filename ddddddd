@@ -1,0 +1,68 @@
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\xlwings\_xlwindows.py:199, in COMRetryObjectWrapper.__getattr__(self, item)
+    198 try:
+--> 199     v = getattr(self._inner, item)
+    200     if isinstance(v, (CDispatch, CoClassBaseClass, DispatchBaseClass)):
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\win32com\client\__init__.py:588, in DispatchBaseClass.__getattr__(self, attr)
+    587 if args is None:
+--> 588     raise AttributeError(f"'{self!r}' object has no attribute '{attr}'")
+    589 return self._ApplyTypes_(*args)
+
+AttributeError: '<win32com.gen_py.Microsoft Excel 16.0 Object Library.ProtectedViewWindow instance at 0x2513741498752>' object has no attribute 'Application'
+
+During handling of the above exception, another exception occurred:
+
+com_error                                 Traceback (most recent call last)
+Cell In[25], line 1
+----> 1 wb1 = xw.Book(Monitor_Rentabilidad, update_links=False)
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\xlwings\main.py:969, in Book.__init__(self, fullname, update_links, read_only, format, password, write_res_password, ignore_read_only_recommended, origin, delimiter, editable, notify, converter, add_to_mru, local, corrupt_load, impl, json, mode, engine, **kwargs)
+    967 candidates = []
+    968 for app in apps:
+--> 969     for wb in app.books:
+    970         if kwargs.get("from_xl") and sys.platform.startswith("darwin"):
+    971             if wb.name.lower() == os.path.split(fullname)[1].lower():
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\xlwings\main.py:551, in App.books(self)
+    544 @property
+    545 def books(self) -> Books:
+    546     """
+    547     A collection of all Book objects that are currently open.
+    548 
+    549     .. versionadded:: 0.9.0
+    550     """
+--> 551     return Books(impl=self.impl.books)
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\xlwings\_xlwindows.py:691, in App.books(self)
+    689 @property
+    690 def books(self):
+--> 691     return Books(xl=self.xl.Workbooks, app=self)
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\xlwings\_xlwindows.py:578, in App.xl(self)
+    575 @property
+    576 def xl(self):
+    577     if self._xl is None:
+--> 578         self._xl = get_xl_app_from_hwnd(self._hwnd)
+    579     return self._xl
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\xlwings\_xlwindows.py:324, in get_xl_app_from_hwnd(hwnd)
+    322 p = _PyCom_PyObjectFromIUnknown(ptr, byref(_IDISPATCH_GUID), True)
+    323 disp = COMRetryObjectWrapper(Dispatch(p))
+--> 324 return disp.Application
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\xlwings\_xlwindows.py:221, in COMRetryObjectWrapper.__getattr__(self, item)
+    214 except AttributeError:
+    215     # pywin32 reacts incorrectly to RPC_E_CALL_REJECTED (i.e. assumes
+    216     # attribute doesn't exist, thus not allowing to distinguish between
+    217     # cases where attribute really doesn't exist or error is only being
+    218     # thrown because the COM RPC server is busy). Here we try to test to
+    219     # see what's going on really
+    220     try:
+--> 221         self._oleobj_.GetIDsOfNames(0, item)
+    222     except pythoncom.ole_error as e:
+    223         if e.hresult != -2147418111:  # RPC_E_CALL_REJECTED
+    224             # attribute probably really doesn't exist
+
+com_error: (-2147352570, 'Nombre desconocido.', None, None)
