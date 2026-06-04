@@ -1,0 +1,86 @@
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\pandas\core\ops\array_ops.py:220, in _na_arithmetic_op(left, right, op, is_cmp)
+    219 try:
+--> 220     result = func(left, right)
+    221 except TypeError:
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\pandas\core\computation\expressions.py:243, in evaluate(op, left_op, right_op, use_numexpr)
+    241     if use_numexpr:
+    242         # error: "None" not callable
+--> 243         return _evaluate(op, op_str, left_op, right_op)  # type: ignore[misc]
+    244 return _evaluate_standard(op, op_str, left_op, right_op)
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\pandas\core\computation\expressions.py:74, in _evaluate_standard(op, op_str, left_op, right_op)
+     73     _store_test_result(False)
+---> 74 return op(left_op, right_op)
+
+TypeError: unsupported operand type(s) for /: 'str' and 'int'
+
+During handling of the above exception, another exception occurred:
+
+TypeError                                 Traceback (most recent call last)
+Cell In[27], line 9
+      5     mes = meses[int(m)-1]
+      6     anio = i[2::]
+      7     mes_ = meses_[int(m)-1]
+      8     print(mes + ' ' + anio)
+----> 9     main(mes,mes_,anio)
+
+Cell In[26], line 180, in main(mes, mes_, anio)
+    176     df = df.loc[:, ~df.columns.duplicated()]
+    177 
+    178 
+    179     for col in df.columns[1:]:
+--> 180         df[col] = df[col]/100
+    181     df.rename(columns = {df.columns[0]: "Detallada"}, inplace = True)
+    182     df.rename(columns = {"Promedio": "Total Financieras"}, inplace = True)
+    183 
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\pandas\core\ops\common.py:85, in _unpack_zerodim_and_defer.<locals>.new_method(self, other)
+     82     other = sanitize_array(other, None)
+     83     other = ensure_wrapped_if_datetimelike(other)
+---> 85 return method(self, other)
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\pandas\core\arraylike.py:214, in OpsMixin.__truediv__(self, other)
+    212 @unpack_zerodim_and_defer("__truediv__")
+    213 def __truediv__(self, other):
+--> 214     return self._arith_method(other, operator.truediv)
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\pandas\core\series.py:6751, in Series._arith_method(self, other, op)
+   6749 def _arith_method(self, other, op):
+   6750     self, other = self._align_for_op(other)
+-> 6751     return base.IndexOpsMixin._arith_method(self, other, op)
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\pandas\core\base.py:1644, in IndexOpsMixin._arith_method(self, other, op)
+   1641     rvalues = np.arange(rvalues.start, rvalues.stop, rvalues.step)
+   1643 with np.errstate(all="ignore"):
+-> 1644     result = ops.arithmetic_op(lvalues, rvalues, op)
+   1646 return self._construct_result(result, name=res_name, other=other)
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\pandas\core\ops\array_ops.py:289, in arithmetic_op(left, right, op)
+    285     _bool_arith_check(op, left, right)  # type: ignore[arg-type]
+    287     # error: Argument 1 to "_na_arithmetic_op" has incompatible type
+    288     # "Union[ExtensionArray, ndarray[Any, Any]]"; expected "ndarray[Any, Any]"
+--> 289     res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+    291 return res_values
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\pandas\core\ops\array_ops.py:229, in _na_arithmetic_op(left, right, op, is_cmp)
+    221 except TypeError:
+    222     if not is_cmp and (
+    223         left.dtype == object or getattr(right, "dtype", None) == object
+    224     ):
+   (...)    227         # Don't do this for comparisons, as that will handle complex numbers
+    228         #  incorrectly, see GH#32047
+--> 229         result = _masked_arith_op(left, right, op)
+    230     else:
+    231         raise
+
+File ~\PyCharmMiscProject\.venv\Lib\site-packages\pandas\core\ops\array_ops.py:184, in _masked_arith_op(x, y, op)
+    181         mask = np.where(y == 1, False, mask)
+    183     if mask.any():
+--> 184         result[mask] = op(xrav[mask], y)
+    186 np.putmask(result, ~mask, np.nan)
+    187 result = result.reshape(x.shape)  # 2D compat
+
+TypeError: unsupported operand type(s) for /: 'str' and 'int'
