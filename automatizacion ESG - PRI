@@ -1,0 +1,35 @@
+quiero un código de Python que me genere una pagina HTML (asi como un dashboard corporativo bien estetico) que sea capaz de abrir el archivo "Z:\Mesa de Inversiones\Bottom-Up\2 Proceso de Inversión Renta Fija\Corporates - Emisiones\Crédito - BU\3. ESG\56. Nuevo Modelo Comité ASG\Excel Inversion Tematica\Invesión Tematica 052026.xlsm" (de hecho quiero el archivo mas reciente y eso lo notaras porque "Invesión Tematica 052026.xlsm" corresponde a mayo 2026 debido a que contiene "052026" y siempre será asi con una fecha "mmyyyy" embebida dentro del nombre del Excel), y se dirijas a la hoja "Valorización de Instrumentos" (la cual tiene un query y demora unos 20 segundo como máximo exagerando en cargar si editas la celda B1 la cual representa una fecha yyyymmdd, y debe ser una fecha de dia habil) y seas de editar la celda B1 con una fecha correspondiente al ultimo dia hábil del mes anterior a este y guardes los resultados luego de cargar que aparecen en las columnas B:AS empezando la fila 3 (en esta fila 3 se encuentra el header), y asi hagas lo mismo para cada ultimo dia hábil de los últimos 12 meses ( por ejemplo si estamos 05/06/2026, entonces necesito 12 base de datos o dataframes que hayas podido guardar siendo cada uno correspondiente a los últimos meses desde mayo 2026 hacia atrás, habiendo elegido el ultimo dia hábil(no sábado ni domingo, ni tampoco los feriados del peru que cambian año a año pero suelen ser siempre las mismas fechas) del mes de cada uno. Luego de esto vayas a "Z:\Benchmarking\G&P_MLab.xlsm" y en su hoja "Detallado" busques dentro de su columna B , cada uno de los valores de la columna H de "Valorización de Instrumentos" (del archivo "Invesión Tematica "&"mmyyyy"&" .xlsm" y cada uno de los 12 dataframes cargados) y después de encontrarlo se seleccione la columna D,E,F,G,H,I,J,K,M,S y V para añadirlo (junto con el header obviamente de dichas columnas porque debemos crear columnas en cada uno de los 12 dataframes extraidos de "Valorización de Instrumentos" para almacenar los valores extraidos de la hoja "Detallado" y en caso quizá no haya match o valor encontrado pues crear su campo en blanco dentro de la nueva columna. Después de esto, necesito que el usuario pueda elegir que columnas ver (siendo la columna obligatoria a ver la columna D extraida de la hoja "Detallado" y la columna B extraida de la hoja de "Valorización de Instrumentos", y ya de allí el resto de columnas debe el usuario tener la opción de elegirlas manualmente en el HTML 8aunque algunas columnas se puedan mostrar por default, este paso es desbloqueado después que el usuario elija el mes que desea visualizar. Luego de esto, deberas crear una columna que diga "Management" de header y sus valores sean creados en base a identificar los dos primeros dígitos de los valores de la columna B xtraida de la hoja de "Valorización de Instrumentos", y estos dos primeros dígitos los someteras a un cuadro de equivalencias por default (y el cual debe mostrarse esteticamente por si el usuario desea editarlas manualmente): CODIGO DE LA COLUMNA B	I-E managed
+01	Internally managed
+08	Internally managed
+12	Internally managed
+15	Internally managed
+18	Internally managed
+21	Internally managed
+22	Internally managed
+23	Internally managed
+25	Internally managed
+27	Internally managed
+30	Internally managed
+31	Internally managed
+32	Internally managed
+34	Internally managed
+39	Internally managed
+43	Internally managed
+48	Externally managed
+49	Externally managed
+50	Externally managed
+51	Externally managed
+52	Externally managed
+53	Externally managed
+54	Externally managed
+59	Internally managed
+60	Internally managed
+63	Internally managed
+6B	Internally managed
+81	Internally managed
+
+   
+Y después lo que neceisto es que el usuario sea capaz de crear una nueva columna con un header que pueda elegir asi como la lógica para determinar los nuevos valores de dicha nueva columna, por ejemplo si quiere agarrar los valores únicos de una columna ya existente, debe poder verlos rápidamente en el HTML para asi por ejemplo poner una condición como, si la columna de header "X" tiene un valor igual a "Fixed Income" y la columna "S" tiene un valor de "Corporate", entonces quiero crear una nueva columna llamada "Asset class 100" en el que de cumplirse las condiciones anteriores (Col X = "Fixed Income" y Col S = "Corporate") entonces para esa fila en mi nueva columna se le asignara el valor de "FI - Corpo", y asi de esta forma el usuario tiene esa flexibilidad. Por otro lado también quiero que pueda ser capaz de hacer sumatorias condicionadas de forma didáctica (que sea mas enviable mi HTML o documento interactivo que hacerlo en Excel), por ejemplo exactamente quisiera que el usuario pudiese elegir sumar todos los valores de la columna Y solo si los valores de la columna Z son iguales a "Listed Equity" , de igual forma sumar "Y" si los valores de la columna Z son iguales a "Private Debt", y después el usuario sea capaz libremente de por ejemplo poner los montos de ambas ordenes condicionadas en una tabla donde en una columna diga como header "Columna Z" (porque de aquí se extrajo valores aunque hasta esto inclusive el usuario puede cambiarle nombre didácticamente) y dentro de esta tabla interactiva super sencilla, sus valores sean "Listed Equity" y "Private Debt", y en la segunda columna de header de normbre flexible (por default "Sumatoria") contenga las sumatorias condicionadas previamente explicadas en el ejemplo. E incluso si el usuario desea, puede crear una fila mas en la cual sume los valores de la segunda columna de esta nueva tabla didáctica creada. Por ultimo deseo que cada paso quede grabado de forma interna y el usuario pueda detener dicha grabación en el momento que desee. La idea de grabar cada paso es generar un código maestro único pero de reconocible patrones (como si de un lenguaje de programación se tratara) y este código pueda ser exportado en un archivo txt a la ruta que elija el usuario, pero la idea de crear este código es que este HTML o pagina interactiva (o lo que propongas) debe ser capaz de solicitar y procesar este código y una vez hecho eso pueda realizar todo el flujo grabado. Es decir con este código yo busco que el usuario pueda ingresar una orden via código , de un procedimiento especifico(blindando en caso de errores por si la base de datos cambia y el código de orden se vea limitado por ello o cualquier eventualidad al procesarse por este documento interactivo debe ser capaz de informarlo con lujo de detalle para que el usuario tome una decisión bien informada y clara), esto ahorra tiempo si el usuario quiere hacer tareas repetitivas o hace una tarea  con cierta frecuencia y no tenga que repetir paso por paso.
+
+
+
