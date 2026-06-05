@@ -1,0 +1,19 @@
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+Cell In[1], line 1307
+   1303     print(f"\n✓ HTML generado: {output_path}")
+   1304 
+   1305 # ─── ENTRY POINT ───────────────────────────────────────────────────────────────
+   1306 if __name__ == "__main__":
+-> 1307     output_html = os.path.join(os.path.dirname(os.path.abspath(__file__)), "investment_dashboard.html")
+   1308     if len(sys.argv) > 1:
+   1309         output_html = sys.argv[1]
+   1310 
+
+NameError: name '__file__' is not defined
+
+
+<>:1301: SyntaxWarning: "\S" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\S"? A raw string is also an option.
+<>:1301: SyntaxWarning: "\S" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\S"? A raw string is also an option.
+C:\Users\p048546\AppData\Local\Temp\ipykernel_27640\2005796891.py:1301: SyntaxWarning: "\S" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\S"? A raw string is also an option.
+  with open(output_path, "w", encoding="utf-8") as f:
